@@ -1,7 +1,14 @@
 #!/usr/bin/env bash
 
-all_channels="$(lightning-cli listfunds | jq -r ".channels[].short_channel_id")"
-all_forwards="$(lightning-cli listforwards | jq ".forwards")"
+lightning_cli=lightning-cli
+
+if [ ! -x $lightning_cli ]; then
+    echo "$lightning_cli is not executable"
+    exit 1
+fi
+
+all_channels="$($lightning_cli listfunds | jq -r ".channels[].short_channel_id")"
+all_forwards="$($lightning_cli listforwards | jq ".forwards")"
 
 echo "\"short_channel_id\",\"count_in\",\"msatoshi_fees_collected_in\",\"count_out\",\"msatoshi_fees_collected_out\""
 
