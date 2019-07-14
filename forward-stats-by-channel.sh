@@ -2,7 +2,7 @@
 
 lightning_cli=lightning-cli
 
-if [ ! -x $lightning_cli ]; then
+if ! which "$lightning_cli" > /dev/null 2>&1; then
     echo "$lightning_cli is not executable"
     exit 1
 fi
