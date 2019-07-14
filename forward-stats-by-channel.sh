@@ -8,7 +8,7 @@ if ! which "$lightning_cli" > /dev/null 2>&1; then
 fi
 
 all_channels="$($lightning_cli listfunds | jq -r ".channels[].short_channel_id")"
-all_forwards="$($lightning_cli listforwards | jq ".forwards[] | [select(.status == \"settled\")]")"
+all_forwards="$($lightning_cli listforwards | jq ".forwards[] | select(.status == \"settled\")" | jq -s "")"
 
 echo "\"short_channel_id\",\"count_in\",\"msatoshi_fees_collected_in\",\"count_out\",\"msatoshi_fees_collected_out\""
 
